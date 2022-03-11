@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using dotnetcore.Dtos.Character;
 using dotnetcore.Models;
+using dotnetcore.services.characterService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetcore.Controllers
@@ -9,20 +12,30 @@ namespace dotnetcore.Controllers
   [Route("[controller]")]
   public class CharacterController : ControllerBase
   {
-    private static List<Character> characters = new List<Character>{
-        new Character(),
-        new Character {Id = 1, Name = "Sam"}
-    };
+    private readonly ICharacterService _characterService;
+
+    public CharacterController(ICharacterService characterService)
+    {
+      _characterService = characterService;
+
+    }
 
     [HttpGet("GetAll")]
-    public ActionResult<List<Character>> Get()
+    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
     {
-      return Ok(characters);
+      return Ok(await _characterService.GetAllCharacters());
     }
     [HttpGet("{id}")]
-    public ActionResult<Character> GetSingle(int id)
+    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id)
     {
-      return Ok(characters.FirstOrDefault(c => c.Id == id));
+      return Ok(await _characterService.GetCharacterById(id));
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter)
+    {
+
+      return Ok(await _characterService.AddCharacter(newCharacter));
     }
 
   }
