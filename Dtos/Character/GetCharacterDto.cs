@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using dotnetcore.Dtos.Skill;
+using dotnetcore.Dtos.weapon;
 using dotnetcore.Models;
 
 namespace dotnetcore.Dtos.Character
@@ -11,6 +14,11 @@ namespace dotnetcore.Dtos.Character
     public int Defense { get; set; } = 10;
     public int Intelligence { get; set; } = 10;
     public RpgClass Class { get; set; } = RpgClass.Knight;
+    public GetWeaponDto Weapon { get; set; }
+    public List<GetSkillDto> Skills { get; set; }
+    public int Victories { get; set; }
+    public int Fights { get; set; }
+    public int Defeats { get; set; }
   }
 
 }

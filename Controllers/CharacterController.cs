@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnetcore.Dtos.Character;
 using dotnetcore.Models;
 using dotnetcore.services.characterService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnetcore.Controllers
 {
+  [Authorize]
   [ApiController]
   [Route("[controller]")]
   public class CharacterController : ControllerBase
@@ -23,6 +26,7 @@ namespace dotnetcore.Controllers
     [HttpGet("GetAll")]
     public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
     {
+
       return Ok(await _characterService.GetAllCharacters());
     }
     [HttpGet("{id}")]
@@ -58,6 +62,12 @@ namespace dotnetcore.Controllers
         return NotFound(response);
       }
       return Ok(response);
+    }
+
+    [HttpPost("Skill")]
+    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddCharacterSkill(AddCharacterSkillDto newCharacterSkill)
+    {
+      return Ok(await _characterService.AddCharacterSkill(newCharacterSkill));
     }
 
   }

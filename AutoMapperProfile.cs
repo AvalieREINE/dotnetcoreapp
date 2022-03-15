@@ -1,5 +1,8 @@
 using AutoMapper;
 using dotnetcore.Dtos.Character;
+using dotnetcore.Dtos.Fight;
+using dotnetcore.Dtos.Skill;
+using dotnetcore.Dtos.weapon;
 using dotnetcore.Models;
 
 namespace dotnetcore
@@ -10,6 +13,9 @@ namespace dotnetcore
     {
       CreateMap<Character, GetCharacterDto>();
       CreateMap<AddCharacterDto, Character>();
+      CreateMap<Weapon, GetWeaponDto>();
+      CreateMap<Skill, GetSkillDto>();
+      CreateMap<Character, HighScoreDto>();
     }
   }
 }
